@@ -27,7 +27,7 @@
   
     
   
-  <meta name="description" content="&hellip;">
+  <meta name="description" content="We collect he following types of information about you: Information you provide us directly: We ask for certain information such as your real name, and e-mail address if you correspond with us.">
 
   
   <link rel="alternate" hreflang="en-gb" href="/privacy/">
@@ -208,6 +208,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=US-172103104-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'US-172103104-1', { 'anonymize_ip': true });
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -238,7 +276,7 @@
   <meta property="og:site_name" content="Katilingban">
   <meta property="og:url" content="/privacy/">
   <meta property="og:title" content="Privacy Policy | Katilingban">
-  <meta property="og:description" content="&hellip;"><meta property="og:image" content="/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="We collect he following types of information about you: Information you provide us directly: We ask for certain information such as your real name, and e-mail address if you correspond with us."><meta property="og:image" content="/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-gb">
   
     
@@ -460,7 +498,15 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>&hellip;</p>
+      <h2 id="we-collect-he-following-types-of-information-about-you">We collect he following types of information about you:</h2>
+<h3 id="information-you-provide-us-directly">Information you provide us directly:</h3>
+<p>We ask for certain information such as your real name,  and e-mail address if you correspond with us. We may also retain any messages you send through the website. We use this information to operate, maintain, and provide to you the features and functionality of the Service.</p>
+<h3 id="analytics-information">Analytics information:</h3>
+<p>We may directly collect analytics data, or use third-party analytics tools and services, to help us measure traffic and usage trends for the website. These tools collect information sent by your browser or mobile device, including the pages you visit and other information that assists us in improving the Service. We collect and use this analytics information in aggregate form such that it cannot reasonably be manipulated to identify any particular individual user.</p>
+<h3 id="log-file-information">Log file information:</h3>
+<p>Log file information is automatically reported by your browser or mobile device each time you access our website. When you use our website, our servers automatically record certain log file information. These server logs may include anonymous information such as your web request, Internet Protocol (“IP”) address, browser type, referring / exit pages and URLs, number of clicks and how you interact with links on the website, domain names, landing pages, pages viewed, and other such information.</p>
+<h2 id="links-to-other-websites-and-services">Links to Other Websites and Services</h2>
+<p>We are not responsible for the practices employed by websites or services linked to or from the Service, including the information or content contained therein. Please remember that when you use a link to go from the Service to another website, our Privacy Policy does not apply to third-party websites or services. Your browsing and interaction on any third-party website or service, including those that have a link or advertisement on our website, are subject to that third party’s own rules and policies. In addition, you agree that we are not responsible and we do not control over any third-parties that you authorize to access your User Content. If you are using a third-party website or service (like Facebook, Google groups, or an IRC chatroom) and you allow such a third-party access to you User Content you do so at your own risk. This Privacy Policy does not apply to information we collect by other means (including offline) or from other sources other than through the Service.</p>
 
     </div>
 
@@ -618,9 +664,6 @@
       <a href="/privacy/">Privacy Policy</a>
     
     
-       &middot; 
-      <a href="/terms/">Terms</a>
-    
   </p>
   
 
@@ -632,6 +675,42 @@
   
 
 
+
+
+
+  
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">
+      <img src="https://search.creativecommons.org/static/img/cc_icon.svg" alt="CC icon">
+      <img src="https://search.creativecommons.org/static/img/cc-by_icon.svg" alt="CC by icon">
+      
+        <img src="https://search.creativecommons.org/static/img/cc-nc_icon.svg" alt="CC NC icon">
+      
+      
+        <img src="https://search.creativecommons.org/static/img/cc-nd_icon.svg" alt="CC ND icon">
+      
+    </a>
+  </p>
 
 
 

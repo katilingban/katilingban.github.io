@@ -27,7 +27,7 @@
   
     
   
-  <meta name="description" content="A collective of publich health and nutrition experts and practitioners">
+  <meta name="description" content="A collective of public health and nutrition experts and practitioners">
 
   
   <link rel="alternate" hreflang="en-gb" href="/tag/source-themes/">
@@ -208,6 +208,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=US-172103104-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'US-172103104-1', { 'anonymize_ip': true });
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -240,7 +278,7 @@
   <meta property="og:site_name" content="Katilingban">
   <meta property="og:url" content="/tag/source-themes/">
   <meta property="og:title" content="Source Themes | Katilingban">
-  <meta property="og:description" content="A collective of publich health and nutrition experts and practitioners"><meta property="og:image" content="/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="A collective of public health and nutrition experts and practitioners"><meta property="og:image" content="/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-gb">
   
     <meta property="og:updated_time" content="2019-04-07T00:00:00&#43;00:00">
@@ -585,9 +623,6 @@
       <a href="/privacy/">Privacy Policy</a>
     
     
-       &middot; 
-      <a href="/terms/">Terms</a>
-    
   </p>
   
 
@@ -599,6 +634,42 @@
   
 
 
+
+
+
+  
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">
+      <img src="https://search.creativecommons.org/static/img/cc_icon.svg" alt="CC icon">
+      <img src="https://search.creativecommons.org/static/img/cc-by_icon.svg" alt="CC by icon">
+      
+        <img src="https://search.creativecommons.org/static/img/cc-nc_icon.svg" alt="CC NC icon">
+      
+      
+        <img src="https://search.creativecommons.org/static/img/cc-nd_icon.svg" alt="CC ND icon">
+      
+    </a>
+  </p>
 
 
 
