@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Katilingban</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Thu, 28 Jun 2018 00:00:00 +0100</lastBuildDate>
     <image>
       <url>/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png</url>
       <title>Katilingban</title>
@@ -73,6 +73,21 @@
 &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Further talk details can easily be added to this page using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Poverty Probability Index</title>
+      <link>/post/ppitables/</link>
+      <pubDate>Mon, 21 Sep 2020 00:30:00 +0000</pubDate>
+      <guid>/post/ppitables/</guid>
+      <description>
+
+
+&lt;p&gt;We just launched the eighth release (version 0.5.3) of &lt;code&gt;ppitables&lt;/code&gt;, our &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; package containing &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;Poverty Probability Index (PPI®)&lt;/a&gt; lookup tables for the 61 countries where &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; can be calculated. The &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; is a poverty measurement tool for organisations and businesses with a mission to serve the poor created by &lt;a href=&#34;https://www.poverty-action.org&#34;&gt;Innovations for Poverty Action (IPA)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Initially released in March of 2018, &lt;code&gt;ppitables&lt;/code&gt; has now been downloaded by more than 12,000 &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users at around 512 downloads per month and still growing.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -194,7 +209,6 @@ Three
 &lt;li&gt;Only the speaker can read these notes&lt;/li&gt;
 &lt;li&gt;Press &lt;code&gt;S&lt;/code&gt; key to view&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;/aside&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;

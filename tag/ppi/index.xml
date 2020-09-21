@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R | Katilingban</title>
-    <link>/category/r/</link>
-      <atom:link href="/category/r/index.xml" rel="self" type="application/rss+xml" />
-    <description>R</description>
+    <title>ppi | Katilingban</title>
+    <link>/tag/ppi/</link>
+      <atom:link href="/tag/ppi/index.xml" rel="self" type="application/rss+xml" />
+    <description>ppi</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Mon, 21 Sep 2020 00:30:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png</url>
-      <title>R</title>
-      <link>/category/r/</link>
+      <title>ppi</title>
+      <link>/tag/ppi/</link>
     </image>
     
     <item>
