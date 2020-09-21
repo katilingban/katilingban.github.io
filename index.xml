@@ -77,6 +77,21 @@
     </item>
     
     <item>
+      <title>Poverty Probability Index</title>
+      <link>/post/ppitables/</link>
+      <pubDate>Mon, 21 Sep 2020 00:30:00 +0000</pubDate>
+      <guid>/post/ppitables/</guid>
+      <description>
+
+
+&lt;p&gt;We just launched the eighth release (version 0.5.3) of &lt;code&gt;ppitables&lt;/code&gt;, our &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; package containing &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;Poverty Probability Index (PPI®)&lt;/a&gt; lookup tables for the 61 countries where &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; can be calculated. The &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; is a poverty measurement tool for organisations and businesses with a mission to serve the poor created by &lt;a href=&#34;https://www.poverty-action.org&#34;&gt;Innovations for Poverty Action (IPA)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Initially released in March of 2018, &lt;code&gt;ppitables&lt;/code&gt; has now been downloaded by more than 12,000 &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users at around 512 downloads per month and still growing.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>We are Katilingban</title>
       <link>/post/we-are-katilingban/</link>
       <pubDate>Fri, 10 Jul 2020 00:30:00 +0000</pubDate>
