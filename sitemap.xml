@@ -23,7 +23,16 @@
   </url>
   
   <url>
+<<<<<<< HEAD
     <loc>https://katilingban.io/</loc>
+=======
+    <loc>/</loc>
+    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/talk/</loc>
+>>>>>>> 3f43265a7af68248ad001cf6ed2400c18587d5a4
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
@@ -173,7 +182,21 @@
   </url>
   
   <url>
+<<<<<<< HEAD
     <loc>https://katilingban.io/tag/deep-learning/</loc>
+=======
+    <loc>/privacy/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/terms/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/deep-learning/</loc>
+>>>>>>> 3f43265a7af68248ad001cf6ed2400c18587d5a4
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
