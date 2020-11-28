@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories | Katilingban</title>
-    <link>/categories/</link>
-      <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://katilingban.io/categories/</link>
+      <atom:link href="https://katilingban.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <description>Categories</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Mon, 21 Sep 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Tue, 24 Nov 2020 00:30:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png</url>
+      <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>Categories</title>
-      <link>/categories/</link>
+      <link>https://katilingban.io/categories/</link>
     </image>
     
   </channel>

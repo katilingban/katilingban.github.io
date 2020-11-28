@@ -2,26 +2,120 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R | Katilingban</title>
-    <link>/category/r/</link>
-      <atom:link href="/category/r/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://katilingban.io/category/r/</link>
+      <atom:link href="https://katilingban.io/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Mon, 21 Sep 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Tue, 24 Nov 2020 00:30:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png</url>
+      <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>R</title>
-      <link>/category/r/</link>
+      <link>https://katilingban.io/category/r/</link>
     </image>
     
     <item>
-      <title>Poverty Probability Index</title>
-      <link>/post/ppitables/</link>
-      <pubDate>Mon, 21 Sep 2020 00:30:00 +0000</pubDate>
-      <guid>/post/ppitables/</guid>
+      <title>ennet: Utilities to Extract and Analyse Text Data from the Emergency Nutrition Network (en-net) Forum</title>
+      <link>https://katilingban.io/post/ennet-package/</link>
+      <pubDate>Tue, 24 Nov 2020 00:30:00 +0000</pubDate>
+      <guid>https://katilingban.io/post/ennet-package/</guid>
       <description>
+&lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;&lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt;&lt;/a&gt; is the go to online forum for field practitioners requiring prompt technical advice for operational
+challenges for which answers are not readily accessible in current guidelines. The questions and the corresponding answers raised within
+&lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; can provide insight into what the key topics of discussion are within the nutrition sector.
+This package provides utility functions for the extraction, processing and analysis of text data from the online forum.&lt;/p&gt;
+&lt;div id=&#34;what-does-ennet-do&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What does &lt;code&gt;ennet&lt;/code&gt; do?&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;ennet&lt;/code&gt; package has two key sets of functions:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;The first set of functions facilitates the extraction of text data from the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The second set of functions supports the analysis of the extracted datasets to produce summary measures and statistics of the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;usage&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;div id=&#34;the-ennet-data-extraction-workflow&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;The &lt;code&gt;ennet&lt;/code&gt; data extraction workflow&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;ennet&lt;/code&gt; package provides a set of functions that extracts information from the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt;. This set of
+functions was built on top of the &lt;a href=&#34;https://rvest.tidyverse.org&#34;&gt;&lt;code&gt;rvest&lt;/code&gt;&lt;/a&gt; package which provides robust and performant web scraping functions and
+the &lt;a href=&#34;https://dplyr.tidyverse.org&#34;&gt;&lt;code&gt;dplyr&lt;/code&gt;&lt;/a&gt; package which provides a full suite of data manipulation functions. The &lt;code&gt;ennet&lt;/code&gt; package was designed
+to be able to interact with how the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; has been structured.&lt;/p&gt;
+&lt;div id=&#34;en-net-website-structure&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;en-net website structure&lt;/h4&gt;
+&lt;p&gt;The &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; website has a very clear and clean structure. The opening page is a list of &lt;strong&gt;thematic
+areas&lt;/strong&gt; which are linked to each of their respective webpages. In each of these &lt;strong&gt;thematic area&lt;/strong&gt; webpages is another list, this time a list of
+&lt;strong&gt;topics&lt;/strong&gt; raised within the &lt;strong&gt;thematic area&lt;/strong&gt;. These &lt;strong&gt;topics&lt;/strong&gt; are the text that an online user provides as the title for the question she/he
+is going to ask. Each of the &lt;strong&gt;topics&lt;/strong&gt; are then again linked to their respective webpages that show the actual full question raised and the
+ensuing responses and &lt;strong&gt;discussion&lt;/strong&gt; stemming from that question.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;ennet_structure.png&#34; width=&#34;100%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Based on this structure, the following functions are available from the &lt;code&gt;ennet&lt;/code&gt; package for extracting text data:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;get_themes&lt;/code&gt; - function to get a list of thematic areas in the forum;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;get_theme_topics&lt;/code&gt; and &lt;code&gt;get_themes_topics&lt;/code&gt; - functions to get list of topics for a specific thematic area or thematic areas; and,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;get_topic_discussions&lt;/code&gt; and &lt;code&gt;get_topics_discussions&lt;/code&gt; - functions to get list of discussions for a specific topic or topics,&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a more detailed discussion of the data extraction workflow via the &lt;code&gt;ennet&lt;/code&gt; package, read &lt;a href=&#34;https://katilingban.io/ennet/articles/extract.html&#34;&gt;Utilities to Extract Text Data from en-net&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-ennet-analytics-functions&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;The &lt;code&gt;ennet&lt;/code&gt; analytics functions&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;ennet&lt;/code&gt; package also includes analytic functions that summarises the text data available from the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt;. Currently, there are four analytic functions available from &lt;code&gt;ennet&lt;/code&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;count_topics&lt;/code&gt; - function to count the number of topics or questions by theme and date;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;count_authors&lt;/code&gt; - function to count the number of topics attributed to a specific author;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;arrange_views&lt;/code&gt; - function to arrange topics by number of views; and,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;arrange_replies&lt;/code&gt; - function to arrange topics by number of replies.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a more detailed discussion of the analytics functions available from the &lt;code&gt;ennet&lt;/code&gt; package, read &lt;a href=&#34;https://katilingban.io/ennet/articles/analytics.html&#34;&gt;Summarising en-net online forum statistics&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;utilities-and-datasets&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Utilities and datasets&lt;/h3&gt;
+&lt;p&gt;In addition to these two sets of key functions, &lt;code&gt;ennet&lt;/code&gt; package also includes a function - &lt;code&gt;update_topics&lt;/code&gt; - that extracts the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; dataset and updates it at a given time interval. This is a convenience wrapper function to &lt;code&gt;get_themes_topics&lt;/code&gt; that is potentially useful for those who wants to build dashboards or applications that uses data from the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Two datasets are also included in the &lt;code&gt;en-net&lt;/code&gt; package. The first dataset is a data.frame of &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; themes and the second dataset is a data.frame of &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; topics.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practical-applications&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Practical applications&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&#34;https://www.en-net.org/&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt;&lt;/a&gt; online forum is a rich resource for understanding the community of users that participate in it. And given how an online forum is designed, that resource can be tapped relatively easily given that the documentation of the interaction and discussion between its users happens in real-time. The &lt;code&gt;ennet&lt;/code&gt; package facilitates the access to that information through the statistical analysis tool &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; with which further levels of analysis can be applied to generate meaningful and valuable understanding of this specific community and to some extent the greater nutrition sector at large.&lt;/p&gt;
+&lt;p&gt;Following are a few practical and meaningful applications of the information generated by the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;assess-effectiveness-of-the-en-net-online-forum&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Assess effectiveness of the en-net online forum&lt;/h3&gt;
+&lt;p&gt;The data from the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; can be used to assess effectiveness of the forum. Effectiveness can be defined as whether the forum has been able to achieve its stated aims/objectives when it was started. Effectiveness can also be expressed in terms of indicators or metrics that reflect overarching principles, ideals or values that those who started the forum adhere to or that the community of users and the wider sector or society believe in. These may include values of inclusion, participation, scientific rigour among others. Given that the forum has been in existence for many years now, information is available over the same period allowing for assessing temporal variation in effectiveness (as defined). This application is a more &lt;strong&gt;normative approach&lt;/strong&gt; and will involve creating or developing metrics or taking relevant metrics from other sectors and applying those to this case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;identify-gaps-in-information-knowledge-andor-skills&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Identify gaps in information, knowledge and/or skills&lt;/h3&gt;
+&lt;p&gt;Given the nature of the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; as a quick point of recourse for field practitioners to seek answers to practical questions and challenges faced, it can be expected that the data from the forum contains information on what these topics are. These information can then be used to identify most common or most important information, knowledge and skills that have been asked about. By identifying these gaps in information, knowledge and/or skills and by understanding the evolution of these needs over time, we can potentially predict training needs in the near term and over time. This application is a more &lt;strong&gt;formative approach&lt;/strong&gt; in that we let the data tell us what information it holds.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;ennet&lt;/code&gt; package provides &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users access to text data from the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; which can be used for various purposes. In the coming weeks, we’ll be using the &lt;code&gt;ennet&lt;/code&gt; package to draw data from the &lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt; online forum&lt;/a&gt; to analyse the topics and discussions in the forum and answer questions that may offer a deeper insight into the community that the online forum fosters.&lt;/p&gt;
+&lt;p&gt;If you have ideas of questions to explore through the &lt;code&gt;ennet&lt;/code&gt; package, let us know &lt;a href=&#34;https://github.com/katilingban/ennet/issues&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Poverty Probability Index</title>
+      <link>https://katilingban.io/post/ppitables/</link>
+      <pubDate>Mon, 21 Sep 2020 00:30:00 +0000</pubDate>
+      <guid>https://katilingban.io/post/ppitables/</guid>
+      <description>
+&lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;We just launched the eighth release (version 0.5.3) of &lt;code&gt;ppitables&lt;/code&gt;, our &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; package containing &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;Poverty Probability Index (PPI®)&lt;/a&gt; lookup tables for the 61 countries where &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; can be calculated. The &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; is a poverty measurement tool for organisations and businesses with a mission to serve the poor created by &lt;a href=&#34;https://www.poverty-action.org&#34;&gt;Innovations for Poverty Action (IPA)&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Initially released in March of 2018, &lt;code&gt;ppitables&lt;/code&gt; has now been downloaded by more than 12,000 &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users at around 512 downloads per month and still growing.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://katilingban.io/ppitables/&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://katilingban.io/img/ppitables.png&#34; width=&#34;300px&#34; align=&#34;center&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Initially released in March of 2018, &lt;code&gt;ppitables&lt;/code&gt; has now been downloaded by more than 12,000 &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users averaging more than 500 downloads per month.&lt;/p&gt;
+&lt;p&gt;We developed &lt;code&gt;ppitables&lt;/code&gt; to support our use of the &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; for surveys and assessments we have conducted. Our main use case for &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; is as an alternative means to classify wealth in our survey sample as opposed to the more widely used and traditional household asset listing and application of &lt;em&gt;principal components analysis (PCA)&lt;/em&gt; for household wealth ranking used by the &lt;a href=&#34;https://www.worldbank.org&#34;&gt;World Bank&lt;/a&gt; and by the &lt;a href=&#34;https://dhsprogram.com&#34;&gt;Demographic and Health Surveys (DHS)&lt;/a&gt;. Using the answers to just 10 questions about a household’s characteristics and asset ownership, a score is calculated and the likelihood of a household living below poverty line is computed. To learn more about the &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt;, its history and development, go &lt;a href=&#34;https://www.povertyindex.org/about-ppi&#34;&gt;here&lt;/a&gt;. To read more about how to use &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt;, click &lt;a href=&#34;https://www.povertyindex.org/get-started-ppi&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;ppitables&lt;/code&gt; package is aimed at &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users whose work and/or research includes the use of the &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt;. The package facilitates the conversion of country-specific household &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; score into a poverty likelihood value for a household. Users can immediately write appropriate scripts to convert data they may have of a sample of households in a particular country into the respective poverty probabilities using the country-specific lookup tables.&lt;/p&gt;
+&lt;p&gt;In this eighth iteration of the package, we have added the most recently released lookup tables for Malawi that uses &lt;a href=&#34;https://www.poverty-action.org&#34;&gt;IPA&lt;/a&gt;’s current approach to calculating poverty probabilities. For more information about &lt;code&gt;ppitables&lt;/code&gt; and how to use it, visit the package &lt;a href=&#34;https://katilingban.io/ppitables/&#34;&gt;website&lt;/a&gt;. To view the package source code, see the package’s &lt;a href=&#34;https://github.com/katilingban/ppitables&#34;&gt;GitHub repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you have used &lt;code&gt;ppitables&lt;/code&gt; before or have used it recently, we’d love to hear from you for feedback and comments. If you find a bug or error or would like to request additional feature/s, file an issue &lt;a href=&#34;https://github.com/katilingban/ppitables/issues&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
 </description>

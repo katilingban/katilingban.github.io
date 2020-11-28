@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors | Katilingban</title>
-    <link>/authors/</link>
-      <atom:link href="/authors/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://katilingban.io/authors/</link>
+      <atom:link href="https://katilingban.io/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Mon, 21 Sep 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Tue, 24 Nov 2020 00:30:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hufef6953a3757aed85bdd3370f5612e5c_98939_512x512_fill_lanczos_center_2.png</url>
+      <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>Authors</title>
-      <link>/authors/</link>
+      <link>https://katilingban.io/authors/</link>
     </image>
     
   </channel>

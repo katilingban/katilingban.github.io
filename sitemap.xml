@@ -3,225 +3,235 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/courses/example/example1/</loc>
+    <loc>https://katilingban.io/courses/example/example1/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/courses/example/</loc>
+    <loc>https://katilingban.io/courses/example/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/courses/example/example2/</loc>
+    <loc>https://katilingban.io/courses/example/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/talk/example/</loc>
+    <loc>https://katilingban.io/talk/example/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/talk/</loc>
+    <loc>https://katilingban.io/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/</loc>
+    <loc>https://katilingban.io/talk/</loc>
+    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/authors/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/categories/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/tag/enn/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/post/ennet-package/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/author/ernest-guevarra/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/tag/nlp/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/tag/nutrition/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/post/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/category/r/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/category/software/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/tags/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/tag/text/</loc>
+    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://katilingban.io/tag/poverty/</loc>
     <lastmod>2020-09-21T23:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://katilingban.io/post/ppitables/</loc>
     <lastmod>2020-09-21T23:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/ernest-guevarra/</loc>
+    <loc>https://katilingban.io/tag/ppi/</loc>
     <lastmod>2020-09-21T23:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/poverty/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/ppitables/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/ppi/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/r/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/software/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/announcement/</loc>
+    <loc>https://katilingban.io/category/announcement/</loc>
     <lastmod>2020-07-09T23:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/katilingban/</loc>
+    <loc>https://katilingban.io/tag/katilingban/</loc>
     <lastmod>2020-07-09T23:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/nutrition/</loc>
+    <loc>https://katilingban.io/tag/public-health/</loc>
     <lastmod>2020-07-09T23:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/public-health/</loc>
+    <loc>https://katilingban.io/post/we-are-katilingban/</loc>
     <lastmod>2020-07-09T23:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/we-are-katilingban/</loc>
-    <lastmod>2020-07-09T23:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/courses/</loc>
+    <loc>https://katilingban.io/courses/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/3/</loc>
+    <loc>https://katilingban.io/publication-type/3/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/preprint/</loc>
+    <loc>https://katilingban.io/publication/preprint/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/katilingban/</loc>
+    <loc>https://katilingban.io/author/katilingban/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/</loc>
+    <loc>https://katilingban.io/publication_types/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/</loc>
+    <loc>https://katilingban.io/publication/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/source-themes/</loc>
+    <loc>https://katilingban.io/tag/source-themes/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/slides/</loc>
+    <loc>https://katilingban.io/slides/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/slides/example/</loc>
+    <loc>https://katilingban.io/slides/example/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/privacy/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/terms/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/deep-learning/</loc>
+    <loc>https://katilingban.io/tag/deep-learning/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/demo/</loc>
+    <loc>https://katilingban.io/tag/demo/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/external-project/</loc>
+    <loc>https://katilingban.io/project/external-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/internal-project/</loc>
+    <loc>https://katilingban.io/project/internal-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/</loc>
+    <loc>https://katilingban.io/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/2/</loc>
+    <loc>https://katilingban.io/publication-type/2/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/journal-article/</loc>
+    <loc>https://katilingban.io/publication/journal-article/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/robert-ford/</loc>
+    <loc>https://katilingban.io/author/robert-ford/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/1/</loc>
+    <loc>https://katilingban.io/publication-type/1/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/conference-paper/</loc>
+    <loc>https://katilingban.io/publication/conference-paper/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/abdoul-aziz-goza/</loc>
+    <loc>https://katilingban.io/author/abdoul-aziz-goza/</loc>
   </url>
   
   <url>
-    <loc>/author/emmanuel-mandalazi/</loc>
+    <loc>https://katilingban.io/author/emmanuel-mandalazi/</loc>
   </url>
   
   <url>
-    <loc>/author/lionella-fieschi/</loc>
+    <loc>https://katilingban.io/author/lionella-fieschi/</loc>
   </url>
   
 </urlset>
