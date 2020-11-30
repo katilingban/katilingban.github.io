@@ -5,12 +5,42 @@
     <link>https://katilingban.io/category/software/</link>
       <atom:link href="https://katilingban.io/category/software/index.xml" rel="self" type="application/rss+xml" />
     <description>Software</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Tue, 24 Nov 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Mon, 30 Nov 2020 00:30:00 +0000</lastBuildDate>
     <image>
       <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>Software</title>
       <link>https://katilingban.io/category/software/</link>
     </image>
+    
+    <item>
+      <title>National Information Platforms for Nutrition Data Quality Toolkit</title>
+      <link>https://katilingban.io/post/nipn-toolkit/</link>
+      <pubDate>Mon, 30 Nov 2020 00:30:00 +0000</pubDate>
+      <guid>https://katilingban.io/post/nipn-toolkit/</guid>
+      <description>
+&lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;&lt;a href=&#34;http://www.nipn-nutrition-platforms.org&#34;&gt;National Information Platforms for Nutrition (NiPN)&lt;/a&gt; is an initiative of the European Commission to provide support to countries to strengthen their information systems for nutrition and to improve the analysis of data so as to better inform the strategic decisions they are faced with to prevent malnutrition and its consequences.&lt;/p&gt;
+&lt;p&gt;As part of this mandate, &lt;a href=&#34;http://www.nipn-nutrition-platforms.org&#34;&gt;NiPN&lt;/a&gt; has commissioned work on the development of a toolkit to assess the quality of various nutrition-specific and nutrition-related data. This is a companion R package to the toolkit of practical analytical methods that can be applied to variables in datasets to assess their quality.&lt;/p&gt;
+&lt;p&gt;The focus of the toolkit is on data required to assess anthropometric status such as measurements of weight, height or length, MUAC, sex and age. The focus is on anthropometric status but many of presented methods could be applied to other types of data. &lt;a href=&#34;http://www.nipn-nutrition-platforms.org&#34;&gt;NiPN&lt;/a&gt; may commission additional toolkits to examine other variables or other types of variables.&lt;/p&gt;
+&lt;p&gt;Data quality is assessed by:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Range checks and value checks to identify univariate outliers&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Scatterplots and statistical methods to identify bivariate outliers&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use of flags to identify outliers in anthropometric indices&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Examining the distribution and the statistics of the distribution of measurements and anthropometric indices&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Assessing the extent of digit preference in recorded measurements&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Assessing the extent of age heaping in recorded ages&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Examining the sex ratio&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Examining age distributions and age by sex distributions&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To read more about &lt;code&gt;nipnTK&lt;/code&gt;, visit the package &lt;a href=&#34;https://nutriverse.io/nipnTK&#34;&gt;website&lt;/a&gt; where you can read more about the package and learn how the data quality assessment is performed in &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>ennet: Utilities to Extract and Analyse Text Data from the Emergency Nutrition Network (en-net) Forum</title>
