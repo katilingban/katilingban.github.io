@@ -5,7 +5,7 @@
     <link>https://katilingban.io/tag/enn/</link>
       <atom:link href="https://katilingban.io/tag/enn/index.xml" rel="self" type="application/rss+xml" />
     <description>enn</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Tue, 24 Nov 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2023`</copyright><lastBuildDate>Tue, 24 Nov 2020 00:30:00 +0000</lastBuildDate>
     <image>
       <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>enn</title>
@@ -14,12 +14,10 @@
     
     <item>
       <title>ennet: Utilities to Extract and Analyse Text Data from the Emergency Nutrition Network (en-net) Forum</title>
-      <link>https://katilingban.io/post/ennet-package/</link>
+      <link>https://katilingban.io/post/extract-analyse-ennet-forum/</link>
       <pubDate>Tue, 24 Nov 2020 00:30:00 +0000</pubDate>
-      <guid>https://katilingban.io/post/ennet-package/</guid>
+      <guid>https://katilingban.io/post/extract-analyse-ennet-forum/</guid>
       <description>
-&lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;&lt;a href=&#34;https://www.en-net.org&#34;&gt;&lt;strong&gt;en-net&lt;/strong&gt;&lt;/a&gt; is the go to online forum for field practitioners requiring prompt technical advice for operational

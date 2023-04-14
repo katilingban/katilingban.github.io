@@ -5,7 +5,7 @@
     <link>https://katilingban.io/tag/ppi/</link>
       <atom:link href="https://katilingban.io/tag/ppi/index.xml" rel="self" type="application/rss+xml" />
     <description>ppi</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2020`</copyright><lastBuildDate>Mon, 21 Sep 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2023`</copyright><lastBuildDate>Mon, 21 Sep 2020 00:30:00 +0000</lastBuildDate>
     <image>
       <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>ppi</title>
@@ -18,8 +18,6 @@
       <pubDate>Mon, 21 Sep 2020 00:30:00 +0000</pubDate>
       <guid>https://katilingban.io/post/ppitables/</guid>
       <description>
-&lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;We just launched the eighth release (version 0.5.3) of &lt;code&gt;ppitables&lt;/code&gt;, our &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; package containing &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;Poverty Probability Index (PPI®)&lt;/a&gt; lookup tables for the 61 countries where &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; can be calculated. The &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; is a poverty measurement tool for organisations and businesses with a mission to serve the poor created by &lt;a href=&#34;https://www.poverty-action.org&#34;&gt;Innovations for Poverty Action (IPA)&lt;/a&gt;.&lt;/p&gt;
