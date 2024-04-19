@@ -5,12 +5,31 @@
     <link>https://katilingban.io/category/software/</link>
       <atom:link href="https://katilingban.io/category/software/index.xml" rel="self" type="application/rss+xml" />
     <description>Software</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2024`</copyright><lastBuildDate>Mon, 30 Nov 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2024`</copyright><lastBuildDate>Fri, 19 Apr 2024 01:27:00 +0000</lastBuildDate>
     <image>
       <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>Software</title>
       <link>https://katilingban.io/category/software/</link>
     </image>
+    
+    <item>
+      <title>ppitables R package update</title>
+      <link>https://katilingban.io/post/ppitables-update/</link>
+      <pubDate>Fri, 19 Apr 2024 01:27:00 +0000</pubDate>
+      <guid>https://katilingban.io/post/ppitables-update/</guid>
+      <description>
+
+
+&lt;p&gt;We just launched the tenth release (version 0.5.5) of &lt;code&gt;ppitables&lt;/code&gt;, our &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; package containing &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;Poverty Probability Index (PPI®)&lt;/a&gt; lookup tables for the 61 countries where &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; can be calculated. The &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; is a poverty measurement tool for organisations and businesses with a mission to serve the poor created by &lt;a href=&#34;https://www.poverty-action.org&#34;&gt;Innovations for Poverty Action (IPA)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Initially released in March of 2018, &lt;code&gt;ppitables&lt;/code&gt; has now been downloaded more than 27,000 times by &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users averaging 375 downloads per month.&lt;/p&gt;
+&lt;p&gt;We developed &lt;code&gt;ppitables&lt;/code&gt; to support our use of the &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; for surveys and assessments we have conducted. Our main use case for &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; is as an alternative means to classify wealth in our survey sample as opposed to the more widely used and traditional household asset listing and application of &lt;em&gt;principal components analysis (PCA)&lt;/em&gt; for household wealth ranking used by the &lt;a href=&#34;https://www.worldbank.org&#34;&gt;World Bank&lt;/a&gt; and by the &lt;a href=&#34;https://dhsprogram.com&#34;&gt;Demographic and Health Surveys (DHS)&lt;/a&gt;. Using the answers to just 10 questions about a household’s characteristics and asset ownership, a score is calculated and the likelihood of a household living below poverty line is computed. To learn more about the &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt;, its history and development, go &lt;a href=&#34;https://www.povertyindex.org/about-ppi&#34;&gt;here&lt;/a&gt;. To read more about how to use &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt;, click &lt;a href=&#34;https://www.povertyindex.org/get-started-ppi&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;ppitables&lt;/code&gt; package is aimed at &lt;a href=&#34;https://cran.r-project.org&#34;&gt;R&lt;/a&gt; users whose work and/or research includes the use of the &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt;. The package facilitates the conversion of country-specific household &lt;a href=&#34;https://www.povertyindex.org&#34;&gt;PPI®&lt;/a&gt; score into a poverty likelihood value for a household. Users can immediately write appropriate scripts to convert data they may have of a sample of households in a particular country into the respective poverty probabilities using the country-specific lookup tables.&lt;/p&gt;
+&lt;p&gt;In this tenth iteration of the package, we have added new tables released by &lt;a href=&#34;https://www.poverty-action.org&#34;&gt;IPA&lt;/a&gt; since 2020 which use the current approach for calculating poverty probabilities. For more information about &lt;code&gt;ppitables&lt;/code&gt; and how to use it, visit the package &lt;a href=&#34;https://katilingban.io/ppitables/&#34;&gt;website&lt;/a&gt;. To view the package source code, see the package’s &lt;a href=&#34;https://github.com/katilingban/ppitables&#34;&gt;GitHub repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you have used &lt;code&gt;ppitables&lt;/code&gt; before or have used it recently, we’d love to hear from you for feedback and comments. If you find a bug or error or would like to request additional feature/s, file an issue &lt;a href=&#34;https://github.com/katilingban/ppitables/issues&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>National Information Platforms for Nutrition Data Quality Toolkit</title>
