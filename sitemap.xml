@@ -20,72 +20,6 @@
     <loc>https://katilingban.io/talk/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://katilingban.io/authors/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/categories/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/author/ernest-guevarra/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/post/nipn-toolkit/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/nipn/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/nutrition/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/post/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/category/r/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/category/software/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tags/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/toolkit/</loc>
-    <lastmod>2020-11-30T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/enn/</loc>
-    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/post/extract-analyse-ennet-forum/</loc>
-    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/nlp/</loc>
-    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/text/</loc>
-    <lastmod>2020-11-24T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/poverty/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/post/ppitables/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/ppi/</loc>
-    <lastmod>2020-09-21T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/category/announcement/</loc>
-    <lastmod>2020-07-09T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/katilingban/</loc>
-    <lastmod>2020-07-09T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/tag/public-health/</loc>
-    <lastmod>2020-07-09T23:30:00+00:00</lastmod>
-  </url><url>
-    <loc>https://katilingban.io/post/we-are-katilingban/</loc>
-    <lastmod>2020-07-09T23:30:00+00:00</lastmod>
-  </url><url>
     <loc>https://katilingban.io/courses/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url><url>
@@ -93,6 +27,9 @@
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://katilingban.io/publication/preprint/</loc>
+    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://katilingban.io/authors/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://katilingban.io/author/katilingban/</loc>
@@ -105,6 +42,9 @@
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://katilingban.io/tag/source-themes/</loc>
+    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://katilingban.io/tags/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://katilingban.io/slides/</loc>
@@ -145,8 +85,14 @@
   </url><url>
     <loc>https://katilingban.io/author/abdoul-aziz-goza/</loc>
   </url><url>
+    <loc>https://katilingban.io/categories/</loc>
+  </url><url>
     <loc>https://katilingban.io/author/emmanuel-mandalazi/</loc>
   </url><url>
+    <loc>https://katilingban.io/author/ernest-guevarra/</loc>
+  </url><url>
     <loc>https://katilingban.io/author/lionella-fieschi/</loc>
+  </url><url>
+    <loc>https://katilingban.io/post/</loc>
   </url>
 </urlset>
