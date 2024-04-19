@@ -5,12 +5,43 @@
     <link>https://katilingban.io/tag/katilingban/</link>
       <atom:link href="https://katilingban.io/tag/katilingban/index.xml" rel="self" type="application/rss+xml" />
     <description>katilingban</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2024`</copyright><lastBuildDate>Fri, 10 Jul 2020 00:30:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2024`</copyright><lastBuildDate>Fri, 19 Apr 2024 03:30:00 +0000</lastBuildDate>
     <image>
       <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>katilingban</title>
       <link>https://katilingban.io/tag/katilingban/</link>
     </image>
+    
+    <item>
+      <title>Determining vitamin and mineral status in populations</title>
+      <link>https://katilingban.io/post/micronutr/</link>
+      <pubDate>Fri, 19 Apr 2024 03:30:00 +0000</pubDate>
+      <guid>https://katilingban.io/post/micronutr/</guid>
+      <description>&lt;p&gt;Vitamin and mineral deficiencies continue to be a significant public health problem. This is particularly critical in developing countries where deficiencies to vitamin A, iron, iodine, and other micronutrients lead to adverse health consequences. Cross-sectional surveys are helpful in answering questions related to the magnitude and distribution of deficiencies of selected vitamins and minerals.&lt;/p&gt;
+&lt;p&gt;Our work on micronutrient surveys motivated us to develop an R package that aids in the processing and analysis of micronutrient biomarkers data taken during cross-sectional surveys. Our 
+&lt;a href=&#34;https://nutriverse.io/micronutr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;micronutr&lt;/code&gt; package&lt;/a&gt; has been released recently on 
+&lt;a href=&#34;https://cran.r-project.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;. This package provides tools for determining select vitamin and mineral deficiencies based on World Health Organization (WHO) guidelines found 
+&lt;a href=&#34;https://www.who.int/teams/nutrition-and-food-safety/databases/vitamin-and-mineral-nutrition-information-system&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;what-does-micronutr-do&#34;&gt;What does &lt;code&gt;micronutr&lt;/code&gt; do?&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;micronutr&lt;/code&gt; package provides tools for determining select vitamin and mineral deficiencies using R. Currently, &lt;code&gt;micronutr&lt;/code&gt; has functions for:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Detecting &lt;strong&gt;haemoglobinaemia&lt;/strong&gt; or anaemia based on an individual&amp;rsquo;s &lt;em&gt;serum haemoglobin&lt;/em&gt; level;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Detecting &lt;strong&gt;inflammation&lt;/strong&gt; status based on &lt;em&gt;c-reactive protein (CRP)&lt;/em&gt; and &lt;em&gt;alpha(1)-acid-glycoprotein (AGP)&lt;/em&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Detecting &lt;strong&gt;iron deficiency&lt;/strong&gt; status based on an individual&amp;rsquo;s &lt;em&gt;serum ferritin&lt;/em&gt; level;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Detecting &lt;strong&gt;iodine deficiency&lt;/strong&gt; status based on a population&amp;rsquo;s mean urinary iodine concentration.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+</description>
+    </item>
     
     <item>
       <title>We are Katilingban</title>
