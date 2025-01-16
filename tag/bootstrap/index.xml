@@ -1,0 +1,1567 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bootstrap | Katilingban</title>
+    <link>https://katilingban.io/tag/bootstrap/</link>
+      <atom:link href="https://katilingban.io/tag/bootstrap/index.xml" rel="self" type="application/rss+xml" />
+    <description>bootstrap</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2025`</copyright><lastBuildDate>Thu, 16 Jan 2025 14:18:00 +0000</lastBuildDate>
+    <image>
+      <url>https://katilingban.io/img/katilingban_bw.png</url>
+      <title>bootstrap</title>
+      <link>https://katilingban.io/tag/bootstrap/</link>
+    </image>
+    
+    <item>
+      <title>bbw R package update</title>
+      <link>https://katilingban.io/post/bbw-update/</link>
+      <pubDate>Thu, 16 Jan 2025 14:18:00 +0000</pubDate>
+      <guid>https://katilingban.io/post/bbw-update/</guid>
+      <description>&lt;p&gt;We just released an updated version (&lt;code&gt;0.3.0&lt;/code&gt;) of the &lt;code&gt;{bbw}&lt;/code&gt; package on 
+&lt;a href=&#34;https://cran.r-project.org/package=bbw&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;. This is &lt;code&gt;{bbw}&lt;/code&gt;&amp;rsquo;s third CRAN release since its maiden acceptance to CRAN almost 7 years ago (17 January 2018). Key updates include the streamlining of the resampling algorithm and the addition of the option to perform bootstrap resampling in parallel for a faster and more efficient process. The package is now also able to perform stratified bootstrap resampling out-of-the-box compared to previous version where users had to write additional code to setup stratification. Finally, the package now includes a convenience function for performing weighted post-stratification estimation. Before, users had to create additional script to perform this analysis.&lt;/p&gt;
+&lt;p&gt;To give you an idea of the new features, we compare the original &lt;code&gt;bootBW()&lt;/code&gt; function to the new/alternative &lt;code&gt;boot_bw()&lt;/code&gt; set of functions. We use the datasets for a rapid assessment method (RAM) survey on mother and child health and nutrition in three regions of Somalia included in the &lt;code&gt;{bbw}&lt;/code&gt; package for this demonstration.&lt;/p&gt;
+&lt;p&gt;The 
+&lt;a href=&#34;https://rapidsurveys.io/bbw/reference/indicatorsHH.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;indicatorsHH&lt;/code&gt;&lt;/a&gt; dataset is a survey dataset collected from a RAM survey in Bakool, Bay, and Middle Shabelle regions of Somalia. The 
+&lt;a href=&#34;https://rapidsurveys.io/bbw/reference/villageData.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;villageData&lt;/code&gt;&lt;/a&gt; contains the list of villages/clusters that were sampled in the survey that collected the &lt;code&gt;indicatorsHH&lt;/code&gt; dataset.&lt;/p&gt;
+&lt;h2 id=&#34;original-bootstrapping-workflow&#34;&gt;Original bootstrapping workflow&lt;/h2&gt;
+&lt;h3 id=&#34;bootstrap-resampling-with-bootbw&#34;&gt;Bootstrap resampling with &lt;code&gt;bootBW()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;bootBW()&lt;/code&gt; function is the original bootstrap resampling function of the package. It can be used as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;boot_df &amp;lt;- bootBW(
+  x = indicatorsHH, w = villageData, statistic = bootClassic,
+  params = c(&amp;quot;anc1&amp;quot;, &amp;quot;anc2&amp;quot;)
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This call to &lt;code&gt;bootBW()&lt;/code&gt; takes in the survey dataset &lt;code&gt;indicatorsHH&lt;/code&gt; as its first argument (&lt;code&gt;x&lt;/code&gt;). This dataset is expected to have a variable labelled as &lt;code&gt;psu&lt;/code&gt; which identifies the primary sampling unit from which data was collected during the survey and then additional variables for the indicators to be estimated. The second argument (&lt;code&gt;w&lt;/code&gt;) is for the dataset of the list of primary sampling units that were sampled in the survey to collect the survey data specified in &lt;code&gt;x&lt;/code&gt;. This dataset, which in this case is &lt;code&gt;villageData&lt;/code&gt;, should have at least a variable labelled &lt;code&gt;psu&lt;/code&gt; which identified the primary sampling unit that matches the same variable in the survey dataset and a variable labelled &lt;code&gt;pop&lt;/code&gt; for the population size of the primary sampling unit. The &lt;code&gt;statistic&lt;/code&gt; argument specified the type of statistic to apply to the bootstrap replicates. There are two of these functions available from the &lt;code&gt;{bbw}&lt;/code&gt; package - &lt;code&gt;bootClassic()&lt;/code&gt; and the &lt;code&gt;bootPROBIT()&lt;/code&gt;. For this example, the &lt;code&gt;bootClassic()&lt;/code&gt; function is used to get the mean value of the bootstrap replicates. This is generally useful for binomial type of indicators and for continuous variables of which to get the mean of. The &lt;code&gt;params&lt;/code&gt; argument takes in values of the indicator names in &lt;code&gt;x&lt;/code&gt; to be estimated. In this example, two indicator names for antenatal care are specified. Finally, the argument for &lt;code&gt;replicates&lt;/code&gt; specify the number of replicate bootstraps to be performed. The default of 400 replicates is used here. This results in the following (showing first 10 rows):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(boot_df, 10)
+#&amp;gt;         anc1       anc2
+#&amp;gt; 1  0.1864175 0.01874714
+#&amp;gt; 2  0.2290978 0.02035985
+#&amp;gt; 3  0.2343529 0.02641509
+#&amp;gt; 4  0.2548555 0.03084955
+#&amp;gt; 5  0.2698864 0.02662863
+#&amp;gt; 6  0.2151356 0.01819052
+#&amp;gt; 7  0.1937834 0.02677702
+#&amp;gt; 8  0.2148349 0.01678766
+#&amp;gt; 9  0.2593480 0.02891566
+#&amp;gt; 10 0.2151414 0.01922153
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The result is a &lt;code&gt;data.frame()&lt;/code&gt; of bootstrap replicates with number of rows equal to the number or replicates and number of columns equal to the number of &lt;code&gt;params&lt;/code&gt; specified. Hence, &lt;code&gt;boot_df&lt;/code&gt; has 400 rows and 2 columns.&lt;/p&gt;
+&lt;h3 id=&#34;bootstrap-estimation&#34;&gt;Bootstrap estimation&lt;/h3&gt;
+&lt;p&gt;Using &lt;code&gt;boot_df&lt;/code&gt; containing bootstrap replicates of the indicators &lt;code&gt;anc1&lt;/code&gt; and &lt;code&gt;anc2&lt;/code&gt;, estimating each indicator with a 95% confidence interval using the &lt;em&gt;percentile bootstrap method&lt;/em&gt;. This can be simply done using the &lt;code&gt;quantile()&lt;/code&gt; function from the &lt;code&gt;stats&lt;/code&gt; package as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;est_df &amp;lt;- lapply(
+  X = boot_df,
+  FUN = quantile,
+  probs = c(0.5, 0.025, 0.975)
+) |&amp;gt;
+  do.call(rbind, args = _)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;quantile()&lt;/code&gt; function is used to get the 50th percentile (for the estimate) and the 2.5th and the 97.5th percentile of the bootstrap replicates to get the lower confidence limit and the upper confidence limits (respectively) of the indicator estimate. This gives the following results:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;est_df
+#&amp;gt;            50%       2.5%      97.5%
+#&amp;gt; anc1 0.2316597 0.17709920 0.28849265
+#&amp;gt; anc2 0.0218962 0.01347537 0.03484835
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;stratified-bootstrap-resampling&#34;&gt;Stratified bootstrap resampling&lt;/h3&gt;
+&lt;p&gt;Note that the &lt;code&gt;indicatorsHH&lt;/code&gt; dataset has geographical stratification. Specifically, the survey from which this data was collected was designed to be representative of three regions in Somalia with the regions identified through the &lt;code&gt;region&lt;/code&gt; variable in &lt;code&gt;indicatorsHH&lt;/code&gt;. Because of this the more appropriate bootstrap resampling approach would be to resample within each region. To do this using the original &lt;code&gt;bootBW()&lt;/code&gt; function would require restructuring the survey dataset by region and then passing the region-stratified datasets individually to the &lt;code&gt;bootBW()&lt;/code&gt; function. This may look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Split indicators by region ----
+indicators_by_region &amp;lt;- split(indicatorsHH, f = indicatorsHH$region)
+
+## Split psus by region ----
+psus_by_region &amp;lt;- split(villageData, f = villageData$region)
+
+## Bootstrap
+boot_df &amp;lt;- Map(
+  f = bootBW, 
+  x = indicators_by_region, 
+  w = psus_by_region, 
+  statistic = rep(list(get(&amp;quot;bootClassic&amp;quot;)), length(indicators_by_region)), 
+  params = rep(list(c(&amp;quot;anc1&amp;quot;, &amp;quot;anc2&amp;quot;)), length(indicators_by_region))
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;bootBW()&lt;/code&gt; function only accepts single &lt;code&gt;data.frame&lt;/code&gt; inputs for &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;w&lt;/code&gt; arguments. Hence, to resample data from within region, the datasets will have to be split into separate &lt;code&gt;data.frame&lt;/code&gt; inputs per region and then &lt;code&gt;bootBW()&lt;/code&gt; applied to each separately. In the example above, this is done by concatenating each of the inputs to &lt;code&gt;bootBW()&lt;/code&gt; into a list and then using the &lt;code&gt;Map()&lt;/code&gt; function is sent to &lt;code&gt;bootBW()&lt;/code&gt; sequentially. This produces a list of the &lt;code&gt;data.frame&lt;/code&gt; bootstrap resample for each region (shown below):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;class(boot_df)
+#&amp;gt; [1] &amp;quot;list&amp;quot;
+
+head(boot_df$Bay, 10)
+#&amp;gt;         anc1        anc2
+#&amp;gt; 1  0.4043419 0.013568521
+#&amp;gt; 2  0.3907104 0.020491803
+#&amp;gt; 3  0.3224044 0.023224044
+#&amp;gt; 4  0.2645862 0.016282225
+#&amp;gt; 5  0.2708618 0.008207934
+#&amp;gt; 6  0.3297151 0.024423338
+#&amp;gt; 7  0.3627717 0.004076087
+#&amp;gt; 8  0.3662551 0.016460905
+#&amp;gt; 9  0.3410641 0.016371078
+#&amp;gt; 10 0.2277628 0.014824798
+
+head(boot_df$Bakool, 10)
+#&amp;gt;         anc1       anc2
+#&amp;gt; 1  0.2916667 0.17415730
+#&amp;gt; 2  0.2928177 0.09497207
+#&amp;gt; 3  0.3260274 0.14804469
+#&amp;gt; 4  0.2747253 0.11864407
+#&amp;gt; 5  0.2900552 0.11797753
+#&amp;gt; 6  0.1823204 0.05849582
+#&amp;gt; 7  0.4065934 0.16343490
+#&amp;gt; 8  0.2727273 0.11731844
+#&amp;gt; 9  0.2821918 0.06944444
+#&amp;gt; 10 0.2939560 0.09749304
+
+head(boot_df$`Middle Shabelle`, 10)
+#&amp;gt;         anc1        anc2
+#&amp;gt; 1  0.1723447 0.011055276
+#&amp;gt; 2  0.2550607 0.018367347
+#&amp;gt; 3  0.1330724 0.010816126
+#&amp;gt; 4  0.2830189 0.024551464
+#&amp;gt; 5  0.1921569 0.014792899
+#&amp;gt; 6  0.2217782 0.010989011
+#&amp;gt; 7  0.2117647 0.007881773
+#&amp;gt; 8  0.2165156 0.019172553
+#&amp;gt; 9  0.2195122 0.015625000
+#&amp;gt; 10 0.2274549 0.015075377
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To estimate the per region results from this bootstrap resampling, the following can be implemented:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;est_df &amp;lt;- lapply(
+  X = boot_df, 
+  FUN = function(x) lapply(
+    x, FUN = quantile, probs = c(0.5, 0.025, 0.975)
+  ) |&amp;gt; 
+    do.call(rbind, args = _)
+)
+
+est_df &amp;lt;- data.frame(
+  region = names(est_df),
+  indicators = lapply(est_df, FUN = row.names) |&amp;gt; unlist(),
+  do.call(rbind, args = est_df)
+)
+
+row.names(est_df) &amp;lt;- NULL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;which results in the following output:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;est_df
+#&amp;gt;            region indicators       X50.       X2.5.     X97.5.
+#&amp;gt; 1          Bakool       anc1 0.30261405 0.188862799 0.41167127
+#&amp;gt; 2             Bay       anc2 0.11251780 0.050903865 0.19504237
+#&amp;gt; 3 Middle Shabelle       anc1 0.32391543 0.217411669 0.43781930
+#&amp;gt; 4          Bakool       anc2 0.01893172 0.002766156 0.03663750
+#&amp;gt; 5             Bay       anc1 0.20220114 0.134820317 0.27676772
+#&amp;gt; 6 Middle Shabelle       anc2 0.01724140 0.007237952 0.03006251
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alternative-blocked-weighted-bootstrap-function-set&#34;&gt;Alternative blocked weighted bootstrap function set&lt;/h2&gt;
+&lt;p&gt;From this demonstration, the &lt;code&gt;bootBW()&lt;/code&gt; function proves to be straightforward to implement and can be easily incorporated into a user&amp;rsquo;s workflow based on their dataset and their analytic needs. However, as shown above, this flexibility requires a lot more extra coding from the user to get from resampling to indicator estimates.&lt;/p&gt;
+&lt;p&gt;Starting from &lt;code&gt;v0.3.0&lt;/code&gt;, an alternative set of functions is available to perform blocked weighted bootstrap resampling that facilitates all the steps from resampling to estimation. Below is an example of how to use this alternative set of functions for the same tasks shown above.&lt;/p&gt;
+&lt;p&gt;This set of functions attempts to make the blocked weighted bootstrap algorithm more efficient through vectorisation and use of parallelisation techniques. The function syntax has been kept consistent with &lt;code&gt;bootBW()&lt;/code&gt; for ease of transition.&lt;/p&gt;
+&lt;h3 id=&#34;bootstrap-resampling-with-boot_bw&#34;&gt;Bootstrap resampling with &lt;code&gt;boot_bw()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;boot_bw()&lt;/code&gt; function is the alternative bootstrap resampling function of the package. It can be used as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;boot_df &amp;lt;- boot_bw(
+  x = indicatorsHH, w = villageData, statistic = bootClassic,
+  params = c(&amp;quot;anc1&amp;quot;, &amp;quot;anc2&amp;quot;)
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This call to &lt;code&gt;boot_bw()&lt;/code&gt; takes in the survey dataset &lt;code&gt;indicatorsHH&lt;/code&gt; as its first argument (&lt;code&gt;x&lt;/code&gt;). This dataset is expected to have a variable labelled as &lt;code&gt;psu&lt;/code&gt; which identifies the primary sampling unit from which data was collected during the survey and then additional variables for the indicators to be estimated. The second argument (&lt;code&gt;w&lt;/code&gt;) is for the dataset of the list of primary sampling units that were sampled in the survey to collect the survey data specified in &lt;code&gt;x&lt;/code&gt;. This dataset, which in this case is &lt;code&gt;villageData&lt;/code&gt;, should have at least a variable labelled &lt;code&gt;psu&lt;/code&gt; which identified the primary sampling unit that matches the same variable in the survey dataset and a variable labelled &lt;code&gt;pop&lt;/code&gt; for the population size of the primary sampling unit. The &lt;code&gt;statistic&lt;/code&gt; argument specified the type of statistic to apply to the bootstrap replicates. There are two of these functions available from the &lt;code&gt;{bbw}&lt;/code&gt; package - &lt;code&gt;bootClassic()&lt;/code&gt; and the &lt;code&gt;bootPROBIT()&lt;/code&gt;. For this example, the &lt;code&gt;bootClassic()&lt;/code&gt; function is used to get the mean value of the bootstrap replicates. This is generally useful for binomial type of indicators and for continuous variables of which to get the mean of. The &lt;code&gt;params&lt;/code&gt; argument takes in values of the indicator names in &lt;code&gt;x&lt;/code&gt; to be estimated. In this example, two indicator names for antenatal care are specified. Finally, the argument for &lt;code&gt;replicates&lt;/code&gt; specify the number of replicate bootstraps to be performed. The default of 400 replicates is used here. As can be noted, the &lt;code&gt;boot_bw()&lt;/code&gt; takes on the same type of arguments as &lt;code&gt;bootBW()&lt;/code&gt; and the syntax is exactly the same. Hence, using this alternative function will be familiar to those who have had experience using the original function.&lt;/p&gt;
+&lt;p&gt;However, the output of the &lt;code&gt;boot_bw()&lt;/code&gt; function is structured differently from the &lt;code&gt;bootBW()&lt;/code&gt; function. The &lt;code&gt;boot_bw()&lt;/code&gt; function produces and object of class &lt;code&gt;boot_bw&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;class(boot_df)
+#&amp;gt; [1] &amp;quot;boot_bw&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The object &lt;code&gt;boot_bw&lt;/code&gt; is a list with 4 named components: &lt;code&gt;params&lt;/code&gt; for the values specified for the &lt;code&gt;params&lt;/code&gt; argument, &lt;code&gt;replicates&lt;/code&gt; for the number of bootstrap replicates performed, &lt;code&gt;strata&lt;/code&gt; for the values specified for stratification, and &lt;code&gt;boot_data&lt;/code&gt; which is the bootstrap results.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(boot_df)
+#&amp;gt; [1] &amp;quot;params&amp;quot;     &amp;quot;replicates&amp;quot; &amp;quot;strata&amp;quot;     &amp;quot;boot_data&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;boot_data&lt;/code&gt; component of the &lt;code&gt;boot_bw&lt;/code&gt; object corresponds to the output of the &lt;code&gt;bootBW()&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;Other than the difference in the structure of the output, this alternative function also has three additional arguments for the new features it provides.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;strata&lt;/code&gt; - the variable name in &lt;code&gt;x&lt;/code&gt; that provides information on the stratification in the survey data. This is by default set to &lt;code&gt;NULL&lt;/code&gt; signifying no stratification. This argument allows the user to perform stratified bootstrap resampling conveniently through the &lt;code&gt;boot_bw()&lt;/code&gt; function.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;parallel&lt;/code&gt; - whether or not to use parallel computation for the bootstrap resampling. This is by default set to FALSE in which case bootstrap resampling is done sequentially as is with the &lt;code&gt;bootBW()&lt;/code&gt; function. If set to TRUE, the function sets up parallel computing and utilises the machines available cores (see &lt;code&gt;cores&lt;/code&gt; argument below).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;cores&lt;/code&gt; - the number of cores to use for parallel computation. This is only evaluated if &lt;code&gt;parallel = TRUE&lt;/code&gt;. By default, this is set to 1 less the total available number of cores of the current machine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To use these new features and functionality, the call to &lt;code&gt;boot_bw()&lt;/code&gt; would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;boot_df &amp;lt;- boot_bw(
+  x = indicatorsHH, w = villageData, statistic = bootClassic,
+  params = c(&amp;quot;anc1&amp;quot;, &amp;quot;anc2&amp;quot;), strata = &amp;quot;region&amp;quot;, parallel = TRUE
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This produces a &lt;code&gt;boot_bw&lt;/code&gt; class &lt;code&gt;list&lt;/code&gt; object with the same components as above. The only different is that the &lt;code&gt;boot_data&lt;/code&gt; component is a &lt;code&gt;list&lt;/code&gt; (instead of a &lt;code&gt;data.frame&lt;/code&gt;) with each component being the &lt;code&gt;data.frame&lt;/code&gt; bootstrap resampling output for each of the strata in the dataset.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;class(boot_df)
+#&amp;gt; [1] &amp;quot;boot_bw&amp;quot;
+
+class(boot_df$boot_data)
+#&amp;gt; [1] &amp;quot;list&amp;quot;
+
+names(boot_df$boot_data)
+#&amp;gt; [1] &amp;quot;Bakool&amp;quot;          &amp;quot;Bay&amp;quot;             &amp;quot;Middle Shabelle&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;bootstrap-estimation-1&#34;&gt;Bootstrap estimation&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;boot_bw_estimate()&lt;/code&gt; function can then be applied to the output of the &lt;code&gt;boot_bw()&lt;/code&gt; function to get the indicator estimates with 95% confidence interval.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;boot_bw_estimate(boot_df)
+#&amp;gt;            region indicator        est        lcl        ucl
+#&amp;gt; 1          Bakool      anc1 0.43888889 0.38881944 0.48888889
+#&amp;gt; 2          Bakool      anc2 0.38055556 0.32497749 0.43062500
+#&amp;gt; 3             Bay      anc1 0.71619066 0.63887512 0.77849135
+#&amp;gt; 4             Bay      anc2 0.00254615 0.00000000 0.01294677
+#&amp;gt; 5 Middle Shabelle      anc1 0.20757542 0.14514451 0.28293531
+#&amp;gt; 6 Middle Shabelle      anc2 0.05065259 0.03133757 0.07453108
+#&amp;gt;            se
+#&amp;gt; 1 0.027718319
+#&amp;gt; 2 0.027983726
+#&amp;gt; 3 0.036466569
+#&amp;gt; 4 0.003743969
+#&amp;gt; 5 0.036375151
+#&amp;gt; 6 0.011463590
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These two functions can be piped to each other for a single workflow from bootstrap resampling to estimation.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;boot_bw(
+  x = indicatorsHH, w = villageData, statistic = bootClassic,
+  params = c(&amp;quot;anc1&amp;quot;, &amp;quot;anc2&amp;quot;), strata = &amp;quot;region&amp;quot;, parallel = TRUE
+) |&amp;gt;
+  boot_bw_estimate()
+#&amp;gt;            region indicator         est       lcl        ucl
+#&amp;gt; 1          Bakool      anc1 0.438888889 0.3805556 0.49444444
+#&amp;gt; 2          Bakool      anc2 0.376731302 0.3138889 0.43888889
+#&amp;gt; 3             Bay      anc1 0.719130072 0.6487833 0.78255787
+#&amp;gt; 4             Bay      anc2 0.002534854 0.0000000 0.01262706
+#&amp;gt; 5 Middle Shabelle      anc1 0.203423968 0.1428536 0.27819673
+#&amp;gt; 6 Middle Shabelle      anc2 0.051256281 0.0339071 0.07622767
+#&amp;gt;            se
+#&amp;gt; 1 0.030425611
+#&amp;gt; 2 0.030033802
+#&amp;gt; 3 0.034273078
+#&amp;gt; 4 0.003372086
+#&amp;gt; 5 0.033966913
+#&amp;gt; 6 0.010573679
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;more-efficient-bootstrap-resampling&#34;&gt;More efficient bootstrap resampling&lt;/h2&gt;
+&lt;p&gt;A key feature of the most recent &lt;code&gt;{bbw}&lt;/code&gt; update is its new function set that uses parallelisation for bootstrap resampling. This vignette explores the bootstrap resampling efficiencies gained with parallelisation.&lt;/p&gt;
+&lt;p&gt;Applying the original and the alternative function/set to the Somalia survey dataset available from this package, bootstrap resampling is applied using the same parameters and the time the operation it takes to run is measured and compared.&lt;/p&gt;
+&lt;h3 id=&#34;bootstrap-resampling-without-parallelisation&#34;&gt;Bootstrap resampling without parallelisation&lt;/h3&gt;
+&lt;p&gt;In this comparison, the original and alternative function/set both implement &lt;em&gt;sequential&lt;/em&gt; bootstrap resampling with number of &lt;em&gt;parameters&lt;/em&gt; set at varying values.&lt;/p&gt;
+&lt;h4 id=&#34;using-one-parameter-and-400-replicates&#34;&gt;Using one parameter and 400 replicates&lt;/h4&gt;
+&lt;div id=&#34;tgcehtuokl&#34; style=&#34;padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;&#34;&gt;
+&lt;style&gt;#tgcehtuokl table {
+  font-family: system-ui, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;, &#39;Noto Color Emoji&#39;;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&lt;p&gt;#tgcehtuokl thead, #tgcehtuokl tbody, #tgcehtuokl tfoot, #tgcehtuokl tr, #tgcehtuokl td, #tgcehtuokl th {
+border-style: none;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl p {
+margin: 0;
+padding: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_spanner_row {
+border-bottom-style: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_from_md &amp;gt; :first-child {
+margin-top: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_from_md &amp;gt; :last-child {
+margin-bottom: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_row_group_first td {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_row_group_first th {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_first_summary_row.thick {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_left {
+text-align: left;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_center {
+text-align: center;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_font_normal {
+font-weight: normal;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_font_bold {
+font-weight: bold;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_font_italic {
+font-style: italic;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_super {
+font-size: 65%;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_indent_1 {
+text-indent: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_indent_2 {
+text-indent: 10px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_indent_3 {
+text-indent: 15px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_indent_4 {
+text-indent: 20px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .gt_indent_5 {
+text-indent: 25px;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}&lt;/p&gt;
+&lt;p&gt;#tgcehtuokl div.Reactable &amp;gt; div.rt-table &amp;gt; div.rt-thead &amp;gt; div.rt-tr.rt-tr-group-header &amp;gt; div.rt-th-group:after {
+height: 0px !important;
+}
+&lt;/style&gt;&lt;/p&gt;
+&lt;table class=&#34;gt_table&#34; data-quarto-disable-processing=&#34;false&#34; data-quarto-bootstrap=&#34;false&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr class=&#34;gt_heading&#34;&gt;
+      &lt;td colspan=&#34;4&#34; class=&#34;gt_heading gt_title gt_font_normal&#34; style&gt;Original vs Alternative bootstrap resampling function/set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;gt_heading&#34;&gt;
+      &lt;td colspan=&#34;4&#34; class=&#34;gt_heading gt_subtitle gt_font_normal gt_bottom_border&#34; style&gt;Sequential resampling with 1 parameter and 400 replicates&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;gt_col_headings&#34;&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_left&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;a-&#34;&gt; &lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;User&#34;&gt;User&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;System&#34;&gt;System&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Elapsed&#34;&gt;Elapsed&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody class=&#34;gt_table_body&#34;&gt;
+    &lt;tr&gt;&lt;td headers=&#34; &#34; class=&#34;gt_row gt_left&#34;&gt;Original - 400 replicates - 1 parameter&lt;/td&gt;
+&lt;td headers=&#34;User&#34; class=&#34;gt_row gt_right&#34;&gt;31.505&lt;/td&gt;
+&lt;td headers=&#34;System&#34; class=&#34;gt_row gt_right&#34;&gt;0.0320000000000036&lt;/td&gt;
+&lt;td headers=&#34;Elapsed&#34; class=&#34;gt_row gt_right&#34;&gt;31.4860000000008&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34; &#34; class=&#34;gt_row gt_left&#34;&gt;Alternative - 400 replicates - 1 parameter&lt;/td&gt;
+&lt;td headers=&#34;User&#34; class=&#34;gt_row gt_right&#34;&gt;25.956&lt;/td&gt;
+&lt;td headers=&#34;System&#34; class=&#34;gt_row gt_right&#34;&gt;0&lt;/td&gt;
+&lt;td headers=&#34;Elapsed&#34; class=&#34;gt_row gt_right&#34;&gt;25.8919999999998&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;Performing bootstrap resampling sequentially, the original function took &lt;strong&gt;31.486&lt;/strong&gt; seconds to run while the alternative function set took &lt;strong&gt;25.892&lt;/strong&gt; seconds to run. There was very little difference between the original and the alternative function/set.&lt;/p&gt;
+&lt;h4 id=&#34;using-varying-number-of-parameters-and-400-replicates&#34;&gt;Using varying number of parameters and 400 replicates&lt;/h4&gt;
+&lt;div id=&#34;yliaqxmopd&#34; style=&#34;padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;&#34;&gt;
+&lt;style&gt;#yliaqxmopd table {
+  font-family: system-ui, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;, &#39;Noto Color Emoji&#39;;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&lt;p&gt;#yliaqxmopd thead, #yliaqxmopd tbody, #yliaqxmopd tfoot, #yliaqxmopd tr, #yliaqxmopd td, #yliaqxmopd th {
+border-style: none;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd p {
+margin: 0;
+padding: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_spanner_row {
+border-bottom-style: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_from_md &amp;gt; :first-child {
+margin-top: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_from_md &amp;gt; :last-child {
+margin-bottom: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_row_group_first td {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_row_group_first th {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_first_summary_row.thick {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_left {
+text-align: left;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_center {
+text-align: center;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_font_normal {
+font-weight: normal;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_font_bold {
+font-weight: bold;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_font_italic {
+font-style: italic;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_super {
+font-size: 65%;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_indent_1 {
+text-indent: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_indent_2 {
+text-indent: 10px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_indent_3 {
+text-indent: 15px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_indent_4 {
+text-indent: 20px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .gt_indent_5 {
+text-indent: 25px;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}&lt;/p&gt;
+&lt;p&gt;#yliaqxmopd div.Reactable &amp;gt; div.rt-table &amp;gt; div.rt-thead &amp;gt; div.rt-tr.rt-tr-group-header &amp;gt; div.rt-th-group:after {
+height: 0px !important;
+}
+&lt;/style&gt;&lt;/p&gt;
+&lt;table class=&#34;gt_table&#34; data-quarto-disable-processing=&#34;false&#34; data-quarto-bootstrap=&#34;false&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr class=&#34;gt_heading&#34;&gt;
+      &lt;td colspan=&#34;7&#34; class=&#34;gt_heading gt_title gt_font_normal&#34; style&gt;Original vs Alternative bootstrap resampling function/set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;gt_heading&#34;&gt;
+      &lt;td colspan=&#34;7&#34; class=&#34;gt_heading gt_subtitle gt_font_normal gt_bottom_border&#34; style&gt;Sequential resampling with increasing number of parameters and 400 replicates&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;gt_col_headings&#34;&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;No.-of-parameters&#34;&gt;No. of parameters&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;User---Original&#34;&gt;User - Original&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;System---Original&#34;&gt;System - Original&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Elapsed---Original&#34;&gt;Elapsed - Original&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;User---Alternative&#34;&gt;User - Alternative&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;System---Alternative&#34;&gt;System - Alternative&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Elapsed---Alternative&#34;&gt;Elapsed - Alternative&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody class=&#34;gt_table_body&#34;&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;1&lt;/td&gt;
+&lt;td headers=&#34;User - Original&#34; class=&#34;gt_row gt_right&#34;&gt;31.505&lt;/td&gt;
+&lt;td headers=&#34;System - Original&#34; class=&#34;gt_row gt_right&#34;&gt;0.032&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Original&#34; class=&#34;gt_row gt_right&#34;&gt;31.486&lt;/td&gt;
+&lt;td headers=&#34;User - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.956&lt;/td&gt;
+&lt;td headers=&#34;System - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;0&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.892&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;2&lt;/td&gt;
+&lt;td headers=&#34;User - Original&#34; class=&#34;gt_row gt_right&#34;&gt;32.442&lt;/td&gt;
+&lt;td headers=&#34;System - Original&#34; class=&#34;gt_row gt_right&#34;&gt;0.000&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Original&#34; class=&#34;gt_row gt_right&#34;&gt;32.363&lt;/td&gt;
+&lt;td headers=&#34;User - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.747&lt;/td&gt;
+&lt;td headers=&#34;System - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;0&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.690&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;4&lt;/td&gt;
+&lt;td headers=&#34;User - Original&#34; class=&#34;gt_row gt_right&#34;&gt;32.485&lt;/td&gt;
+&lt;td headers=&#34;System - Original&#34; class=&#34;gt_row gt_right&#34;&gt;0.000&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Original&#34; class=&#34;gt_row gt_right&#34;&gt;32.404&lt;/td&gt;
+&lt;td headers=&#34;User - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.302&lt;/td&gt;
+&lt;td headers=&#34;System - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;0&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.244&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;8&lt;/td&gt;
+&lt;td headers=&#34;User - Original&#34; class=&#34;gt_row gt_right&#34;&gt;31.727&lt;/td&gt;
+&lt;td headers=&#34;System - Original&#34; class=&#34;gt_row gt_right&#34;&gt;0.000&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Original&#34; class=&#34;gt_row gt_right&#34;&gt;31.652&lt;/td&gt;
+&lt;td headers=&#34;User - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.660&lt;/td&gt;
+&lt;td headers=&#34;System - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;0&lt;/td&gt;
+&lt;td headers=&#34;Elapsed - Alternative&#34; class=&#34;gt_row gt_right&#34;&gt;25.604&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;There are marginal gains with the alternative function set when the number of parameters more than 1 but the gains do not increase with the increase in the number of parameters.&lt;/p&gt;
+&lt;h2 id=&#34;bootstrap-resampling-with-parallelisation&#34;&gt;Bootstrap resampling with parallelisation&lt;/h2&gt;
+&lt;p&gt;In this comparison, the alternative function/set implements &lt;em&gt;parallel&lt;/em&gt; bootstrap resampling with number of &lt;em&gt;parameters&lt;/em&gt; set at varying values and number of parallel cores set at varying values and then compared to performance of the original function as above.&lt;/p&gt;
+&lt;div id=&#34;ccotcrngkr&#34; style=&#34;padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;&#34;&gt;
+&lt;style&gt;#ccotcrngkr table {
+  font-family: system-ui, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;, &#39;Noto Color Emoji&#39;;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&lt;p&gt;#ccotcrngkr thead, #ccotcrngkr tbody, #ccotcrngkr tfoot, #ccotcrngkr tr, #ccotcrngkr td, #ccotcrngkr th {
+border-style: none;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr p {
+margin: 0;
+padding: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_spanner_row {
+border-bottom-style: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_from_md &amp;gt; :first-child {
+margin-top: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_from_md &amp;gt; :last-child {
+margin-bottom: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_row_group_first td {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_row_group_first th {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_first_summary_row.thick {
+border-top-width: 2px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_left {
+text-align: left;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_center {
+text-align: center;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_font_normal {
+font-weight: normal;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_font_bold {
+font-weight: bold;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_font_italic {
+font-style: italic;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_super {
+font-size: 65%;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_indent_1 {
+text-indent: 5px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_indent_2 {
+text-indent: 10px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_indent_3 {
+text-indent: 15px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_indent_4 {
+text-indent: 20px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .gt_indent_5 {
+text-indent: 25px;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}&lt;/p&gt;
+&lt;p&gt;#ccotcrngkr div.Reactable &amp;gt; div.rt-table &amp;gt; div.rt-thead &amp;gt; div.rt-tr.rt-tr-group-header &amp;gt; div.rt-th-group:after {
+height: 0px !important;
+}
+&lt;/style&gt;&lt;/p&gt;
+&lt;table class=&#34;gt_table&#34; data-quarto-disable-processing=&#34;false&#34; data-quarto-bootstrap=&#34;false&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr class=&#34;gt_heading&#34;&gt;
+      &lt;td colspan=&#34;6&#34; class=&#34;gt_heading gt_title gt_font_normal&#34; style&gt;Original vs Alternative bootstrap resampling function/set&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;gt_heading&#34;&gt;
+      &lt;td colspan=&#34;6&#34; class=&#34;gt_heading gt_subtitle gt_font_normal gt_bottom_border&#34; style&gt;Parallel resampling with increasing number of parameters and increasing number of cores&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;gt_col_headings&#34;&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;No.-of-parameters&#34;&gt;No. of parameters&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Original&#34;&gt;Original&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Alternative---sequential&#34;&gt;Alternative - sequential&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Alternative---2-cores&#34;&gt;Alternative - 2 cores&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Alternative---4-cores&#34;&gt;Alternative - 4 cores&lt;/th&gt;
+      &lt;th class=&#34;gt_col_heading gt_columns_bottom_border gt_right&#34; rowspan=&#34;1&#34; colspan=&#34;1&#34; scope=&#34;col&#34; id=&#34;Alternative---8-cores&#34;&gt;Alternative - 8 cores&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody class=&#34;gt_table_body&#34;&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;1&lt;/td&gt;
+&lt;td headers=&#34;Original&#34; class=&#34;gt_row gt_right&#34;&gt;31.486&lt;/td&gt;
+&lt;td headers=&#34;Alternative - sequential&#34; class=&#34;gt_row gt_right&#34;&gt;25.892&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 2 cores&#34; class=&#34;gt_row gt_right&#34;&gt;16.904&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 4 cores&#34; class=&#34;gt_row gt_right&#34;&gt;10.392&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 8 cores&#34; class=&#34;gt_row gt_right&#34;&gt;7.361&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;2&lt;/td&gt;
+&lt;td headers=&#34;Original&#34; class=&#34;gt_row gt_right&#34;&gt;32.363&lt;/td&gt;
+&lt;td headers=&#34;Alternative - sequential&#34; class=&#34;gt_row gt_right&#34;&gt;25.690&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 2 cores&#34; class=&#34;gt_row gt_right&#34;&gt;16.754&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 4 cores&#34; class=&#34;gt_row gt_right&#34;&gt;10.634&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 8 cores&#34; class=&#34;gt_row gt_right&#34;&gt;7.398&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;4&lt;/td&gt;
+&lt;td headers=&#34;Original&#34; class=&#34;gt_row gt_right&#34;&gt;32.404&lt;/td&gt;
+&lt;td headers=&#34;Alternative - sequential&#34; class=&#34;gt_row gt_right&#34;&gt;25.244&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 2 cores&#34; class=&#34;gt_row gt_right&#34;&gt;17.017&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 4 cores&#34; class=&#34;gt_row gt_right&#34;&gt;10.545&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 8 cores&#34; class=&#34;gt_row gt_right&#34;&gt;7.585&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers=&#34;No. of parameters&#34; class=&#34;gt_row gt_right&#34;&gt;8&lt;/td&gt;
+&lt;td headers=&#34;Original&#34; class=&#34;gt_row gt_right&#34;&gt;31.652&lt;/td&gt;
+&lt;td headers=&#34;Alternative - sequential&#34; class=&#34;gt_row gt_right&#34;&gt;25.604&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 2 cores&#34; class=&#34;gt_row gt_right&#34;&gt;17.568&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 4 cores&#34; class=&#34;gt_row gt_right&#34;&gt;10.240&lt;/td&gt;
+&lt;td headers=&#34;Alternative - 8 cores&#34; class=&#34;gt_row gt_right&#34;&gt;7.624&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;This updated version of the &lt;code&gt;{bbw}&lt;/code&gt; package maintains support for the original bootstrap resampling function &lt;code&gt;bootBW()&lt;/code&gt; so as to support existing workflows that use it. We would recommend, however, that the new &lt;code&gt;boot_bw()&lt;/code&gt; set of functions be used for new uses and for new workflows.&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
