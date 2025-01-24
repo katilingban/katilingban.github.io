@@ -5,12 +5,49 @@
     <link>https://katilingban.io/category/r/</link>
       <atom:link href="https://katilingban.io/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2025`</copyright><lastBuildDate>Thu, 16 Jan 2025 14:18:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-gb</language><copyright>©Katilingban `2025`</copyright><lastBuildDate>Fri, 24 Jan 2025 17:00:00 +0000</lastBuildDate>
     <image>
       <url>https://katilingban.io/img/katilingban_bw.png</url>
       <title>R</title>
       <link>https://katilingban.io/category/r/</link>
     </image>
+    
+    <item>
+      <title>Rapid Assessment Method for Older People (RAM-OP)</title>
+      <link>https://katilingban.io/post/ram-op/</link>
+      <pubDate>Fri, 24 Jan 2025 17:00:00 +0000</pubDate>
+      <guid>https://katilingban.io/post/ram-op/</guid>
+      <description>&lt;p&gt;After a little more than 7 years, we are pleased to announce the first CRAN release of the &lt;code&gt;{oldr}&lt;/code&gt; package. &lt;code&gt;{oldr}&lt;/code&gt; is an implementation of the &lt;strong&gt;Rapid Assessment Method for Older People&lt;/strong&gt; or &lt;strong&gt;RAM-OP&lt;/strong&gt;. 
+&lt;a href=&#34;https://www.helpage.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;HelpAge International&lt;/a&gt;, 
+&lt;a href=&#34;http://www.validinternational.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;VALID International&lt;/a&gt;, and 
+&lt;a href=&#34;http://www.brixtonhealth.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Brixton Health&lt;/a&gt;, with financial assistance from the 
+&lt;a href=&#34;http://www.elrha.org/hif/home/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Humanitarian Innovation Fund (HIF)&lt;/a&gt;, developed RAM-OP that provides accurate and reliable estimates of the needs of older people. The method uses simple procedures, in a short time frame (i.e. about two weeks including training, data collection, data entry, and data analysis), and at considerably lower cost than other methods. The &lt;strong&gt;RAM-OP&lt;/strong&gt; method is based on the following principles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use of a familiar &lt;em&gt;“household survey”&lt;/em&gt; design employing a two-stage cluster sample design optimised to allow the use of a small primary sample (&lt;em&gt;m ≥ 16 clusters&lt;/em&gt;) and a small overall (&lt;em&gt;n ≥ 192&lt;/em&gt;) sample.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assessment of multiple dimensions of need in older people (including prevalence of global, moderate and severe acute malnutrition) using, whenever possible, standard and well-tested indicators and question sets.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data analysis performed using modern computer-intensive methods to allow estimates of indicator levels to be made with useful precision using a small sample size.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;{oldr}&lt;/code&gt; package is meant to serve as an alternative to the original software developed for &lt;strong&gt;RAM-OP&lt;/strong&gt;. The original software, also built on R using the 
+&lt;a href=&#34;https://r.analyticflow.com/en/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R AnalyticFlow&lt;/a&gt; integrated development environment (IDE), is very useful but is limited by known issues and limitations of the R AnalyticFlow IDE. The &lt;code&gt;{oldr}&lt;/code&gt; package, on the other hand, is aimed at experienced R users who may prefer to use their own IDE when implementing a &lt;strong&gt;RAM-OP&lt;/strong&gt; survey. With a few lines of code using &lt;code&gt;{oldr}&lt;/code&gt; functions, a user can replicate everything that the original software can do. For example, using the &lt;code&gt;testSVY&lt;/code&gt; and &lt;code&gt;testPSU&lt;/code&gt; &lt;strong&gt;RAM-OP&lt;/strong&gt; dataset included in the package, a full data processing, analysis, and reporting can be performed as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;library(oldr)
+
+testSVY |&amp;gt;
+  create_op() |&amp;gt;
+  estimate_op(w = testPSU) |&amp;gt;
+  report_op_html(
+    svy = testSVY, filename = file.path(tempdir(), &amp;quot;ramOPreport&amp;quot;)
+  )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To learn more about the &lt;code&gt;{oldr}&lt;/code&gt; package, see the 
+&lt;a href=&#34;https://rapidsurveys.io/oldr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>bbw R package update</title>
